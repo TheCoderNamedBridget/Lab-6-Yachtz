@@ -1,0 +1,175 @@
+/**
+ * Lab 6
+ * Player class
+ * @author Bridget Naylor
+ * @date 3/1/2020
+ */
+public class Player {
+
+	public Die[] dice = new Die[3];
+	
+	public int points;
+	
+	public Player () {
+		
+		for ( int i = 0; i < dice.length; i++ ) {
+			
+			dice[i] = new Die(6);
+			
+		}
+		
+	}
+	
+	//uses compareTo to sort the dice list in ascending order
+	public void sort() {
+		
+		boolean sorted = false;
+		
+		while ( !sorted ) {
+			
+			if ( Die.compareTo( dice[0], dice[1]) > 0 ) {
+				
+				Die placeholder = dice[0];
+				dice[0] = dice[1];
+				dice[1] = placeholder;
+				break;
+				
+			} else if ( Die.compareTo( dice[0], dice[2]) > 0 ) {
+				
+				Die placeholder = dice[0];
+				dice[0] = dice[2];
+				dice[2] = placeholder;
+				break;
+				
+			} else if ( Die.compareTo( dice[1], dice[2]) > 0 ) {
+				
+				Die placeholder = dice[1];
+				dice[1] = dice[2];
+				dice[2] = placeholder;
+				break;
+			}
+			
+			System.out.println( "d1 = " + dice[0].getDieVal() + dice[1].getDieVal() + dice[2].getDieVal());
+			sorted = true;
+			
+		}
+	}
+	
+
+	/**
+	 * Checks if any two dice match
+	 * @param one first Die
+	 * @param two second Die
+	 * @param three third Die 
+	 * @return true if dies are matching false otherwise
+	 */
+	public boolean checkTwoMatch() {
+		
+		if ( Die.equals( dice[0], dice[1] ) ^ Die.equals( dice[0], dice[2] ) ^ Die.equals( dice[1], dice[2] ) ) {
+			points += 1;
+			return true;
+		}
+		
+		return false;	
+		
+	}
+	
+	//three match = 3 points
+	/**
+	 * Checks if three dice match
+	 * @param one first Die
+	 * @param two second Die
+	 * @param three third Die
+	 * @return true if dies are matching false otherwise
+	 */
+	public boolean checkThreeMatch() {
+		
+		if ( Die.equals( dice[0], dice[1] ) && Die.equals( dice[0], dice[2] ) && Die.equals( dice[1], dice[2] )) {
+			
+			points += 3;
+			return true;
+		}
+		
+		return false;	
+		
+	}
+	
+	//series of 3 = 2 points
+	/**
+	 * Checks if three dice are conseq
+	 * @param one first Die
+	 * @param two second Die
+	 * @param three third Die
+	 * @return true if dies are matching false otherwise
+	 */
+	public boolean conseq() {
+		
+		if ( Die.compareTo(dice[0], dice[1]) == -1 && Die.compareTo(dice[0], dice[2]) == -2 ) {
+			points += 2;
+			return true;
+		}
+		
+		return false;	
+		
+	}
+	
+	/**
+	 * Prints out the result of a dice roll
+	 */
+	public void toString( Die d1, Die d2, Die d3) {
+		
+		System.out.println( "Rolling Dice... D1=" + d1.getDieVal()+ ", " + "D2=" + d2.getDieVal() + ", " + "D3=" + d3.getDieVal());
+		sort();
+	}
+	
+	/**
+	 * Gets the point value of a player
+	 * @return point value
+	 */
+	public int getPoint() {
+		return points;
+	}
+	
+	/**
+	 * rolls the dice and displays current game state
+	 */
+	public void takeTurn() {
+		
+		for ( int i = 0; i < dice.length; i++) {
+			
+			dice[i].roll();
+			
+			
+			
+		}
+		
+		toString( dice[0], dice[1], dice[2]);
+		if ( checkThreeMatch() ) {
+			
+			System.out.println( "You got 3 of a kind!" );
+			
+		} else if ( checkTwoMatch() ) {
+				
+				System.out.println(  "You got a pair!" );
+
+				
+		} else if ( conseq() ) {
+			
+			System.out.println( "You got a series of three!" );
+			
+		} else if ( !checkTwoMatch() && !checkThreeMatch() && !conseq()) {
+			
+			System.out.println( "Aww. Too bad." );
+			
+		}
+		
+		System.out.println( "Score = " + getPoint() + " points." );
+		System.out.println( "Play Again? " );
+		
+	}
+
+//prints their values using the toString() function you wrote (you can use System.out.println(this) to call 
+//		it from within takeTurn()), and determines if the player met any of the win conditions, if so, 
+//then accumulate those points in their point total and display
+	
+}
