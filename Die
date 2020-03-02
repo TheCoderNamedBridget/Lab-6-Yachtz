@@ -1,0 +1,87 @@
+
+
+
+
+public class Die {
+	
+	
+	private int sides;
+	
+	private int dieVal;
+	
+	/**
+	 * Constructor 
+	 * @param s the number of sides this die has
+	 */
+	public Die ( int s ) {
+		
+		sides = s;
+		dieVal = roll();
+		
+	}
+	
+	/**
+	 * Rolls the die and returns the result
+	 * @return result of the die roll
+	 */
+	public int roll() {
+		
+		dieVal = ( int )( Math.random() * sides ) + 1;
+		return dieVal;
+		
+	}
+	
+	/**
+	 * Retrieves the value of the die
+	 * @return value of the die
+	 */
+	public int getDieVal() {
+		return dieVal;
+	}
+	
+	/**
+	 * Sets the die to the parameter value
+	 * @param value value to set die to
+	 * @return value of the die
+	 */
+	public boolean setDiceVal( int value ) {
+		
+		if ( value > 0 && value <= sides ) {
+			dieVal = value;
+			return true; // successfully set value
+		}
+		return false; //failed to set the value
+		
+	}
+	
+	/**
+	 * Compares two Die to see if they are equal
+	 * @param one is the first die
+	 * @param two is the second die
+	 * @return true if equal, false other wise
+	 */
+	public static boolean equals( Die one, Die two )  {
+		
+		if ( one.getDieVal() == two.getDieVal() ) {
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	/**
+	 * Compares two Die to determine order
+	 * @param one is the first die
+	 * @param two is the second die
+	 * @return 0 if equal, - if one < two, + if one > two
+	 */
+	public static int compareTo( Die one, Die two )  {
+		
+		return one.getDieVal() - two.getDieVal();
+		
+	}
+
+}
