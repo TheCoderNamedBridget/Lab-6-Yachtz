@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+/**
+ * Lab 6
+ * Main class
+ * @author Bridget Naylor
+ * @date 3/1/2020
+ */
+public class Main {
+	
+	public static void main( String[] args ) {
+	
+		System.out.println( "Yachtz ");
+	
+		Player me = new Player();
+		
+		boolean gameOver = false;
+		
+		me.takeTurn();
+		
+		while ( !gameOver ) {
+	
+		    boolean userInput = CheckInput.getYesNo();
+		    
+		    if ( userInput ) {
+		    	
+		    	me.takeTurn();
+		    	
+		    } else {
+		    	
+		    	System.out.println( "Game Over.");
+		    	System.out.println( "Final Score = " + me.getPoint() + " points");
+		    	
+		    }
+	}
+}	
+}
